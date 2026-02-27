@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import { Settings2, Gamepad2 } from 'lucide-react';
 import ComboFinder from './components/ComboFinder';
 import InventoryModal from './components/InventoryModal';
-import BestCombos from './components/BestCombos';
+import AllCombos from './components/AllCombos';
 
 export default function App() {
   // Initialize state from localStorage or empty arrays
@@ -74,7 +74,7 @@ export default function App() {
           
           <div className="my-10 border-t border-zinc-100 dark:border-zinc-800"></div>
           
-          <BestCombos 
+          <AllCombos 
             ownedGenres={ownedGenres} 
             ownedTypes={ownedTypes} 
           />

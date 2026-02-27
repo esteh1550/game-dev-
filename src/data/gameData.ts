@@ -40,11 +40,23 @@ export const CREATIVE_COMBOS: Record<string, string[]> = {
   "Educational": ["History", "Card Game"]
 };
 
+export const HMM_COMBOS: Record<string, string[]> = {
+  "Puzzle": ["Marathon"]
+};
+
+export const NOT_GOOD_COMBOS: Record<string, string[]> = {
+  "Adventure": ["Marathon"],
+  "Shooter": ["Marathon"]
+};
+
 // Extract unique Genres and Types
 const genreSet = new Set<string>();
 const typeSet = new Set<string>();
 
-[AMAZING_COMBOS, CREATIVE_COMBOS].forEach(comboMap => {
+// Add Marathon explicitly to typeSet since it appears in HMM/NOT_GOOD but might not be in others yet
+typeSet.add("Marathon");
+
+[AMAZING_COMBOS, CREATIVE_COMBOS, HMM_COMBOS, NOT_GOOD_COMBOS].forEach(comboMap => {
   Object.entries(comboMap).forEach(([genre, types]) => {
     genreSet.add(genre);
     types.forEach(type => typeSet.add(type));
@@ -54,10 +66,12 @@ const typeSet = new Set<string>();
 export const ALL_GENRES = Array.from(genreSet).sort();
 export const ALL_TYPES = Array.from(typeSet).sort();
 
-export type Rating = "Amazing!" | "Creative" | "Not Bad";
+export type Rating = "Amazing!" | "Creative" | "Not Bad" | "Hmm..." | "Not Good";
 
 export function getComboRating(genre: string, type: string): Rating {
   if (AMAZING_COMBOS[genre]?.includes(type)) return "Amazing!";
   if (CREATIVE_COMBOS[genre]?.includes(type)) return "Creative";
+  if (HMM_COMBOS[genre]?.includes(type)) return "Hmm...";
+  if (NOT_GOOD_COMBOS[genre]?.includes(type)) return "Not Good";
   return "Not Bad";
 }
